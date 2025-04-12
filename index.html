@@ -481,17 +481,6 @@
             font-style: italic;
         }
 
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(45, 212, 191, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        /* Resume Section at Bottom */
         .resume-container {
             background: var(--darker);
             border-radius: 10px;
@@ -546,6 +535,16 @@
             color: var(--primary);
             margin-right: 0.5rem;
             margin-top: 0.2rem;
+        }
+
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(45, 212, 191, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
+        }
+
+        .pulse {
+            animation: pulse 2s infinite;
         }
 
         @media (max-width: 768px) {
@@ -649,7 +648,6 @@
             </div>
         </section>
 
-        <!-- Labs Section as Centerpiece -->
         <section id="labs">
             <h2 class="section-title">Hands-On Cybersecurity Labs</h2>
             <p style="text-align: center; margin-bottom: 2rem; color: #94a3b8;">
@@ -774,15 +772,16 @@
                     </div>
                 </a>
                 
-                <a href="https://github.com/Makicho" target="_blank" class="contact-card">
+                <a href="https://github.com/yourusername" target="_blank" class="contact-card">
                     <i class="fab fa-github"></i>
                     <div class="contact-details">
                         <h3>GitHub</h3>
-                        <p>github.com/Makicho</p>
+                        <p>github.com/yourusername</p>
                     </div>
+                </a>
+            </div>
         </section>
 
-        <!-- Resume Section at Bottom -->
         <section id="resume">
             <div class="resume-container">
                 <h2 class="section-title">Professional Resume</h2>
@@ -804,7 +803,7 @@
                             <i class="fas fa-briefcase"></i>
                             <div>
                                 <strong>Bell Mobility</strong><br>
-                                National Channel Support Help Desk (2008-2020)
+                                National Support Help Desk (2008-2020)
                             </div>
                         </div>
                     </div>
@@ -860,7 +859,7 @@
     <footer>
         <div class="social-links">
             <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="https://github.com/yourusername"><i class="fab fa-github"></i></a>
             <a href="https://linkedin.com/in/macdonald-kugwa"><i class="fab fa-linkedin"></i></a>
             <a href="#"><i class="fab fa-discord"></i></a>
         </div>
