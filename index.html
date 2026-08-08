@@ -1,917 +1,572 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Macdonald Kugwa - Cybersecurity Portfolio</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <style>
-        :root {
-            --primary: #2dd4bf;  /* Teal */
-            --accent: #8b5cf6;   /* Purple */
-            --dark: #0f172a;     /* Navy */
-            --darker: #1e293b;
-            --light: #f8fafc;
-            --danger: #ef4444;
-            --success: #10b981;
-        }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--dark);
-            color: var(--light);
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        body::before {
-            content: "";
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('https://images.unsplash.com/photo-1550751827-4bd374c3f58b?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover;
-            background-position: center;
-            opacity: 0.15;
-            z-index: -1;
-        }
-
-        .circuit-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="100" height="100" viewBox="0 0 100 100"><rect x="45" y="0" width="10" height="10" fill="%232dd4bf" opacity="0.3"/><rect x="0" y="45" width="10" height="10" fill="%232dd4bf" opacity="0.3"/><rect x="90" y="45" width="10" height="10" fill="%232dd4bf" opacity="0.3"/><rect x="45" y="90" width="10" height="10" fill="%232dd4bf" opacity="0.3"/><circle cx="50" cy="50" r="5" fill="none" stroke="%232dd4bf" stroke-width="1" opacity="0.3"/></svg>');
-            background-size: 100px 100px;
-            z-index: -1;
-            animation: circuitGlow 10s infinite alternate;
-        }
-
-        @keyframes circuitGlow {
-            0% { opacity: 0.05; }
-            100% { opacity: 0.15; }
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            z-index: 1000;
-            background: rgba(15, 23, 42, 0.8);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid rgba(45, 212, 191, 0.1);
-        }
-
-        .logo {
-            font-family: 'Share Tech Mono', monospace;
-            font-size: 1.5rem;
-            color: var(--primary);
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-        }
-
-        .logo i {
-            font-size: 1.8rem;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        nav a {
-            color: var(--light);
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        nav a:hover {
-            color: var(--primary);
-        }
-
-        nav a::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background-color: var(--primary);
-            transition: width 0.3s ease;
-        }
-
-        nav a:hover::after {
-            width: 100%;
-        }
-
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-content {
-            max-width: 800px;
-            z-index: 2;
-            position: relative;
-        }
-
-        .name-title {
-            color: var(--primary);
-            font-size: 2.5rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            animation: fadeIn 1s ease-out;
-        }
-
-        .hero-title {
-            font-size: 3.5rem;
-            margin-bottom: 1rem;
-            color: var(--light);
-            animation: fadeIn 1.2s ease-out;
-            text-shadow: 0 0 10px rgba(45, 212, 191, 0.5);
-        }
-
-        .hero-subtitle {
-            font-size: 1.4rem;
-            color: #94a3b8;
-            margin-bottom: 2rem;
-            animation: fadeIn 1.4s ease-out;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .typewriter {
-            display: inline-block;
-            border-right: 3px solid var(--primary);
-            white-space: nowrap;
-            overflow: hidden;
-            animation: typing 3.5s steps(40, end), blink-caret 0.75s step-end infinite;
-        }
-
-        @keyframes typing {
-            from { width: 0 }
-            to { width: 100% }
-        }
-
-        @keyframes blink-caret {
-            from, to { border-color: transparent }
-            50% { border-color: var(--primary); }
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.8rem 1.8rem;
-            background: transparent;
-            color: var(--primary);
-            border: 2px solid var(--primary);
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            margin: 0.5rem;
-            cursor: pointer;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .btn:hover {
-            background: var(--primary);
-            color: var(--dark);
-            transform: translateY(-3px);
-            box-shadow: 0 10px 20px rgba(45, 212, 191, 0.3);
-        }
-
-        .btn-primary {
-            background: var(--primary);
-            color: var(--dark);
-        }
-
-        .btn-primary:hover {
-            background: transparent;
-            color: var(--primary);
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 2rem;
-            position: relative;
-        }
-
-        section {
-            padding: 4rem 0;
-            position: relative;
-        }
-
-        .section-title {
-            font-size: 2.5rem;
-            margin-bottom: 2rem;
-            color: var(--primary);
-            text-align: center;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 100px;
-            height: 3px;
-            background: linear-gradient(to right, var(--primary), var(--accent));
-        }
-
-        .labs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .lab-card {
-            background-color: var(--darker);
-            border-radius: 10px;
-            padding: 1.5rem;
-            transition: all 0.3s ease;
-            border-left: 4px solid var(--primary);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .lab-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(45, 212, 191, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .lab-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
-        }
-
-        .lab-card:hover::before {
-            opacity: 1;
-        }
-
-        .lab-title {
-            font-size: 1.2rem;
-            margin-bottom: 0.5rem;
-            color: var(--light);
-        }
-
-        .lab-desc {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        .category-title {
-            color: var(--accent);
-            font-size: 1.8rem;
-            margin: 3rem 0 1.5rem;
-            padding-left: 1rem;
-            border-left: 4px solid var(--accent);
-            background: rgba(139, 92, 246, 0.1);
-            padding: 1rem;
-            border-radius: 0 10px 10px 0;
-        }
-
-        .badges-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .badge {
-            background: var(--darker);
-            border-radius: 10px;
-            padding: 1.5rem;
-            width: 200px;
-            text-align: center;
-            transition: all 0.3s ease;
-            border-bottom: 4px solid var(--primary);
-        }
-
-        .badge:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(45, 212, 191, 0.2);
-        }
-
-        .badge i {
-            font-size: 2.5rem;
-            color: var(--primary);
-            margin-bottom: 1rem;
-        }
-
-        .badge-title {
-            font-size: 1.1rem;
-            color: var(--light);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 1.5rem;
-            margin-top: 2rem;
-        }
-
-        .contact-card {
-            background: var(--darker);
-            padding: 1.5rem;
-            border-radius: 10px;
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            text-decoration: none;
-            color: var(--light);
-            transition: all 0.3s ease;
-            border: 1px solid rgba(45, 212, 191, 0.1);
-        }
-
-        .contact-card:hover {
-            transform: translateY(-5px);
-            background: rgba(45, 212, 191, 0.1);
-            border-color: var(--primary);
-        }
-
-        .contact-card i {
-            font-size: 2rem;
-            color: var(--primary);
-        }
-
-        .contact-details h3 {
-            color: var(--primary);
-            margin-bottom: 0.5rem;
-        }
-
-        .contact-details p {
-            color: #94a3b8;
-        }
-
-        footer {
-            background: var(--darker);
-            padding: 2rem;
-            text-align: center;
-            margin-top: 4rem;
-            border-top: 1px solid rgba(45, 212, 191, 0.1);
-        }
-
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 1.5rem;
-            margin-bottom: 1.5rem;
-        }
-
-        .social-links a {
-            color: var(--light);
-            font-size: 1.5rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--primary);
-        }
-
-        .copyright {
-            color: #94a3b8;
-            font-size: 0.9rem;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .terminal {
-            background: rgba(30, 41, 59, 0.8);
-            border-radius: 10px;
-            padding: 1.5rem;
-            margin: 2rem 0;
-            font-family: 'Share Tech Mono', monospace;
-            border: 1px solid rgba(45, 212, 191, 0.3);
-            box-shadow: 0 0 20px rgba(45, 212, 191, 0.1);
-        }
-
-        .terminal-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1rem;
-            padding-bottom: 0.5rem;
-            border-bottom: 1px solid rgba(45, 212, 191, 0.2);
-        }
-
-        .terminal-btn {
-            width: 12px;
-            height: 12px;
-            border-radius: 50%;
-            margin-right: 6px;
-        }
-
-        .terminal-btn.red {
-            background: #ef4444;
-        }
-
-        .terminal-btn.yellow {
-            background: #f59e0b;
-        }
-
-        .terminal-btn.green {
-            background: #10b981;
-        }
-
-        .terminal-title {
-            margin-left: 10px;
-            color: #94a3b8;
-            font-size: 0.8rem;
-        }
-
-        .terminal-body {
-            color: var(--primary);
-        }
-
-        .terminal-command {
-            margin-bottom: 0.5rem;
-        }
-
-        .terminal-command::before {
-            content: '$ ';
-            color: var(--success);
-        }
-
-        .terminal-output {
-            color: #94a3b8;
-            font-style: italic;
-        }
-
-        .-container {
-            background: var(--darker);
-            border-radius: 10px;
-            padding: 2rem;
-            margin-top: 4rem;
-            text-align: center;
-        }
-
-        .-download {
-            display: inline-block;
-            background: var(--primary);
-            color: var(--dark);
-            padding: 0.8rem 1.5rem;
-            border-radius: 50px;
-            font-weight: 600;
-            text-decoration: none;
-            margin-top: 1.5rem;
-            transition: all 0.3s ease;
-        }
-
-        .-download:hover {
-            background: var(--accent);
-            color: var(--light);
-            transform: translateY(-3px);
-        }
-
-        .-highlights {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin-top: 1.5rem;
-            text-align: left;
-        }
-
-        .-category {
-            background: rgba(30, 41, 59, 0.5);
-            padding: 1rem;
-            border-radius: 8px;
-            border-left: 3px solid var(--primary);
-        }
-
-        .-category h4 {
-            color: var(--primary);
-            margin-bottom: 0.8rem;
-            text-align: center;
-        }
-
-        .-item {
-            margin-bottom: 0.5rem;
-            display: flex;
-            align-items: flex-start;
-        }
-
-        .-item i {
-            color: var(--primary);
-            margin-right: 0.5rem;
-            margin-top: 0.2rem;
-        }
-
-        @keyframes pulse {
-            0% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0.7); }
-            70% { box-shadow: 0 0 0 10px rgba(45, 212, 191, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(45, 212, 191, 0); }
-        }
-
-        .pulse {
-            animation: pulse 2s infinite;
-        }
-
-        @media (max-width: 768px) {
-            .hero-title {
-                font-size: 2.5rem;
-            }
-            
-            .hero-subtitle {
-                font-size: 1.1rem;
-            }
-            
-            nav ul {
-                gap: 1rem;
-            }
-            
-            .labs-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        @media (max-width: 480px) {
-            header {
-                flex-direction: column;
-                padding: 1rem;
-            }
-            
-            nav ul {
-                margin-top: 1rem;
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero-title {
-                font-size: 2rem;
-            }
-            
-            .btn {
-                padding: 0.6rem 1.2rem;
-                font-size: 0.9rem;
-            }
-        }
-    </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Macdonald Kugwa — IT & Security Operations</title>
+<meta name="description" content="Macdonald Kugwa — service desk and security operations, founder of ByteScale Systems LLC. Richmond, TX.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700;800&family=Public+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --ink:#0A0F13;
+  --panel:#111A21;
+  --panel-2:#0E161C;
+  --rule:#1F2C35;
+  --text:#E7EEF2;
+  --muted:#8CA1AD;
+  --amber:#F0A028;
+  --steel:#6FA8B8;
+  --signal:#D9503F;
+  --maxw:1120px;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--ink);
+  color:var(--text);
+  font-family:'Public Sans',system-ui,sans-serif;
+  font-size:16px;
+  line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+}
+/* faint industrial grid — no imagery, no external assets */
+body::before{
+  content:"";
+  position:fixed;inset:0;z-index:-1;
+  background-image:
+    linear-gradient(to right,rgba(111,168,184,.055) 1px,transparent 1px),
+    linear-gradient(to bottom,rgba(111,168,184,.055) 1px,transparent 1px);
+  background-size:72px 72px;
+  mask-image:radial-gradient(ellipse at 50% 0%,#000 20%,transparent 78%);
+}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--amber);outline-offset:3px}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
+.mono{font-family:'JetBrains Mono',ui-monospace,monospace}
+
+/* ── header ─────────────────────────────── */
+header{
+  position:sticky;top:0;z-index:50;
+  background:rgba(10,15,19,.86);
+  backdrop-filter:blur(8px);
+  border-bottom:1px solid var(--rule);
+}
+.bar{
+  max-width:var(--maxw);margin:0 auto;padding:14px 24px;
+  display:flex;align-items:center;justify-content:space-between;gap:16px;
+}
+.mark{
+  font-family:'JetBrains Mono',monospace;font-weight:700;
+  letter-spacing:.14em;font-size:.9rem;color:var(--text);text-decoration:none;
+}
+.mark span{color:var(--amber)}
+nav ul{display:flex;gap:22px;list-style:none;flex-wrap:wrap}
+nav a{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;
+  letter-spacing:.16em;text-transform:uppercase;color:var(--muted);
+  text-decoration:none;padding-bottom:3px;border-bottom:1px solid transparent;
+}
+nav a:hover{color:var(--text);border-bottom-color:var(--amber)}
+
+/* ── hero ───────────────────────────────── */
+.hero{padding:96px 0 72px}
+.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:start}
+.eyebrow{
+  font-family:'JetBrains Mono',monospace;font-size:.72rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--amber);margin-bottom:22px;
+  display:flex;align-items:center;gap:10px;
+}
+.dot{width:7px;height:7px;border-radius:50%;background:var(--amber);animation:blip 2.4s infinite}
+@keyframes blip{0%,100%{opacity:1}50%{opacity:.25}}
+h1{
+  font-family:'Archivo',sans-serif;font-weight:800;
+  font-size:clamp(2.4rem,5.4vw,4rem);line-height:.98;letter-spacing:-.035em;
+  margin-bottom:22px;
+}
+h1 em{font-style:normal;color:var(--amber)}
+.lede{font-size:1.08rem;color:var(--muted);max-width:52ch;margin-bottom:30px}
+.lede strong{color:var(--text);font-weight:600}
+.facts{border-top:1px solid var(--rule);padding-top:18px;display:grid;gap:9px}
+.fact{display:flex;gap:14px;font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.06em}
+.fact dt{color:var(--muted);min-width:104px;text-transform:uppercase}
+.fact dd{color:var(--text)}
+.cta-row{display:flex;flex-wrap:wrap;gap:12px;margin-top:30px}
+.btn{
+  font-family:'JetBrains Mono',monospace;font-size:.74rem;letter-spacing:.14em;
+  text-transform:uppercase;text-decoration:none;padding:13px 22px;
+  border:1px solid var(--amber);color:var(--amber);background:transparent;
+  transition:background .2s,color .2s;
+}
+.btn:hover{background:var(--amber);color:var(--ink)}
+.btn-quiet{border-color:var(--rule);color:var(--muted)}
+.btn-quiet:hover{background:transparent;border-color:var(--steel);color:var(--steel)}
+
+/* ── signature: the stack panel ─────────── */
+.stack{background:var(--panel);border:1px solid var(--rule)}
+.stack-head{
+  display:flex;justify-content:space-between;align-items:center;gap:12px;
+  padding:12px 16px;border-bottom:1px solid var(--rule);
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;
+  letter-spacing:.14em;text-transform:uppercase;color:var(--muted);
+}
+.stack-head b{color:var(--steel);font-weight:400}
+.stack-body{padding:22px 20px;font-family:'JetBrains Mono',monospace;font-size:.78rem}
+.node{border-left:2px solid var(--rule);padding:0 0 22px 18px;position:relative}
+.node:last-child{padding-bottom:0}
+.node::before{
+  content:"";position:absolute;left:-5px;top:6px;width:8px;height:8px;
+  background:var(--ink);border:2px solid var(--amber);border-radius:50%;
+}
+.node-name{color:var(--text);font-weight:700;letter-spacing:.04em}
+.node-addr{color:var(--steel)}
+.node-note{color:var(--muted);font-family:'Public Sans',sans-serif;font-size:.82rem;margin-top:4px;line-height:1.5}
+.hop{color:var(--amber);font-size:.7rem;letter-spacing:.1em;margin:2px 0 6px}
+
+/* ── sections ───────────────────────────── */
+section{padding:64px 0;border-top:1px solid var(--rule)}
+.sec-head{margin-bottom:36px}
+.sec-tag{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.2em;
+  text-transform:uppercase;color:var(--amber);display:block;margin-bottom:10px;
+}
+h2{font-family:'Archivo',sans-serif;font-weight:700;font-size:clamp(1.6rem,3vw,2.2rem);letter-spacing:-.025em;line-height:1.1}
+.sec-sub{color:var(--muted);margin-top:10px;max-width:60ch}
+
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px}
+.card{background:var(--panel-2);border:1px solid var(--rule);padding:24px;transition:border-color .2s,transform .2s}
+.card:hover{border-color:var(--steel);transform:translateY(-2px)}
+.card h3{font-family:'Archivo',sans-serif;font-size:1.12rem;font-weight:700;letter-spacing:-.01em;margin-bottom:4px}
+.card .role{font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--steel);margin-bottom:14px;display:block}
+.card ul{list-style:none;display:grid;gap:9px}
+.card li{padding-left:16px;position:relative;font-size:.94rem;color:var(--muted)}
+.card li::before{content:"";position:absolute;left:0;top:.62em;width:6px;height:1px;background:var(--amber)}
+.card li b{color:var(--text);font-weight:600}
+.spec{
+  margin-top:16px;padding-top:14px;border-top:1px solid var(--rule);
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--steel);letter-spacing:.05em;
+}
+
+/* record */
+.record{display:grid;gap:0}
+.row{
+  display:grid;grid-template-columns:150px 1fr;gap:24px;
+  padding:20px 0;border-bottom:1px solid var(--rule);align-items:baseline;
+}
+.row:first-child{border-top:1px solid var(--rule)}
+.row .when{font-family:'JetBrains Mono',monospace;font-size:.76rem;color:var(--amber);letter-spacing:.06em}
+.row .what b{display:block;font-family:'Archivo',sans-serif;font-size:1.02rem;font-weight:700;margin-bottom:3px}
+.row .what span{color:var(--muted);font-size:.94rem}
+
+/* credentials */
+.creds{display:grid;grid-template-columns:1fr 1fr;gap:20px}
+.cred-col{background:var(--panel-2);border:1px solid var(--rule);padding:24px}
+.cred-col h3{
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.18em;
+  text-transform:uppercase;margin-bottom:18px;padding-bottom:12px;border-bottom:1px solid var(--rule);
+}
+.cred-col.held h3{color:var(--amber)}
+.cred-col.wip h3{color:var(--steel)}
+.cred-col ul{list-style:none;display:grid;gap:12px}
+.cred-col li{display:flex;justify-content:space-between;gap:14px;font-size:.95rem;align-items:baseline}
+.cred-col li em{font-style:normal;font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--muted);white-space:nowrap}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}
+.chip{
+  font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.06em;
+  color:var(--muted);border:1px solid var(--rule);padding:6px 11px;
+}
+.chip:hover{border-color:var(--steel);color:var(--steel)}
+
+/* resume + contact */
+.resume-box{
+  background:var(--panel);border:1px solid var(--rule);border-left:3px solid var(--amber);
+  padding:32px;display:flex;flex-wrap:wrap;gap:24px;align-items:center;justify-content:space-between;
+}
+.resume-box p{color:var(--muted);max-width:46ch}
+.contact-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px}
+.contact-card{
+  display:block;text-decoration:none;background:var(--panel-2);
+  border:1px solid var(--rule);padding:22px;transition:border-color .2s,background .2s;
+}
+.contact-card:hover{border-color:var(--amber);background:var(--panel)}
+.contact-card span{
+  display:block;font-family:'JetBrains Mono',monospace;font-size:.68rem;
+  letter-spacing:.18em;text-transform:uppercase;color:var(--amber);margin-bottom:8px;
+}
+.contact-card p{color:var(--text);font-size:.95rem;word-break:break-word}
+
+footer{border-top:1px solid var(--rule);padding:30px 0;margin-top:24px}
+.foot{
+  max-width:var(--maxw);margin:0 auto;padding:0 24px;
+  display:flex;flex-wrap:wrap;gap:12px;justify-content:space-between;
+  font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.1em;color:var(--muted);
+}
+.foot a{text-decoration:none}
+.foot a:hover{color:var(--amber)}
+
+/* reveal */
+.reveal{opacity:0;transform:translateY(14px);transition:opacity .5s ease,transform .5s ease}
+.reveal.on{opacity:1;transform:none}
+
+@media (max-width:900px){
+  .hero-grid{grid-template-columns:1fr;gap:40px}
+  .creds{grid-template-columns:1fr}
+}
+@media (max-width:600px){
+  .hero{padding:64px 0 48px}
+  section{padding:48px 0}
+  .row{grid-template-columns:1fr;gap:6px}
+  .bar{flex-direction:column;align-items:flex-start}
+  nav ul{gap:16px}
+  .fact{flex-direction:column;gap:2px}
+  .fact dt{min-width:0}
+  .resume-box{padding:24px}
+}
+@media (prefers-reduced-motion:reduce){
+  *{animation:none!important;transition:none!important}
+  .reveal{opacity:1;transform:none}
+  html{scroll-behavior:auto}
+}
+</style>
 </head>
 <body>
-    <div class="circuit-overlay"></div>
-    
-    <header>
-        <a href="#" class="logo">
-            <i class="fas fa-shield-alt"></i> MK
-        </a>
-        <nav>
-            <ul>
-                <li><a href="#about">About</a></li>
-                <li><a href="#labs">Labs</a></li>
-                <li><a href="#badges">Badges</a></li>
-                <li><a href="#contact">Contact</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <section class="hero">
-        <div class="hero-content">
-            <h1 class="name-title">Macdonald Kugwa</h1>
-            <h2 class="hero-title">Cybersecurity Professional</h2>
-            <p class="hero-subtitle">
-                <span class="typewriter">Specializing in Network Security, Threat Detection, and System Hardening</span>
-            </p>
-            <div>
-                <a href="#labs" class="btn btn-primary pulse">Explore Labs</a>
-                <a href="#contact" class="btn">Contact Me</a>
-            </div>
+<header>
+  <div class="bar">
+    <a href="#top" class="mark">M<span>K</span>_/ IT &amp; SECURITY OPS</a>
+    <nav>
+      <ul>
+        <li><a href="#now">Now</a></li>
+        <li><a href="#lab">Lab</a></li>
+        <li><a href="#record">Record</a></li>
+        <li><a href="#credentials">Credentials</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <div class="wrap hero">
+    <div class="hero-grid">
+      <div>
+        <p class="eyebrow"><span class="dot"></span> Available for SOC Tier 1–2 &amp; IT support roles</p>
+        <h1>Experience first.<br>Certificates <em>second.</em></h1>
+        <p class="lede">
+          I'm <strong>Macdonald Kugwa</strong> — service desk and endpoint operations for a
+          50+ site industrial services company, and sole member of
+          <strong>ByteScale Systems LLC</strong>, my Texas IT and security consultancy.
+          Every line on this page is work I've actually run, not a course I've watched.
+        </p>
+        <dl class="facts">
+          <div class="fact"><dt>Based</dt><dd>Richmond, TX 77406 · Houston metro</dd></div>
+          <div class="fact"><dt>Entity</dt><dd>ByteScale Systems LLC · Texas · est. 2026</dd></div>
+          <div class="fact"><dt>Daily tools</dt><dd>Intune · Entra ID · CrowdStrike Falcon · FortiSASE · M365</dd></div>
+          <div class="fact"><dt>Degree</dt><dd>BS Computer Science · University of the People, 2025</dd></div>
+        </dl>
+        <div class="cta-row">
+          <a href="#lab" class="btn">See the lab</a>
+          <a href="#resume" class="btn btn-quiet">Download resume</a>
         </div>
-    </section>
+      </div>
 
-    <div class="container">
-        <section id="about">
-            <h2 class="section-title">About Me</h2>
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-btn red"></div>
-                    <div class="terminal-btn yellow"></div>
-                    <div class="terminal-btn green"></div>
-                    <div class="terminal-title">terminal ~ profile --view</div>
-                </div>
-                <div class="terminal-body">
-                    <div class="terminal-command">whoami</div>
-                    <div class="terminal-output">macdonald_kugwa - cybersecurity_specialist</div>
-                    
-                    <div class="terminal-command">experience --summary</div>
-                    <div class="terminal-output">12+ years in IT support & security | ADT Security Specialist | Bell Mobility Network Support</div>
-                    
-                    <div class="terminal-command">education --current</div>
-                    <div class="terminal-output">Per Scholas Cybersecurity Bootcamp (2025) | CompTIA CySA+ | Google IT & Security Certs</div>
-                    
-                    <div class="terminal-command">skills --core</div>
-                    <div class="terminal-output">SIEM Tools • Threat Detection • Network Security • Vulnerability Assessment • Firewall/VPN • Python/PowerShell</div>
-                    
-                    <div class="terminal-command">achievements --recent</div>
-                    <div class="terminal-output">Reduced IT downtime by 30% | 100+ hands-on security labs completed | Security Onion & Splunk implementation</div>
-                </div>
-            </div>
-        </section>
-
-        <section id="labs">
-            <h2 class="section-title">Hands-On Cybersecurity Labs</h2>
-            <p style="text-align: center; margin-bottom: 2rem; color: #94a3b8;">
-                Practical exercises completed through Per Scholas Cybersecurity Bootcamp
-            </p>
-            
-            <h3 class="category-title">Network Security</h3>
-            <div class="labs-grid">
-                <div class="lab-card">
-                    <h3 class="lab-title">Wireless Router Configuration</h3>
-                    <p class="lab-desc">Secure setup of wireless networks with WPA2/WPA3 encryption and client isolation</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">DHCP Implementation</h3>
-                    <p class="lab-desc">Deployed and troubleshot DHCP services for dynamic IP address management</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">NAT Configuration</h3>
-                    <p class="lab-desc">Network Address Translation setup and traffic analysis</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">Access Control Lists</h3>
-                    <p class="lab-desc">Implemented network traffic filtering rules on enterprise routers</p>
-                </div>
-            </div>
-            
-            <h3 class="category-title">Threat Detection</h3>
-            <div class="labs-grid">
-                <div class="lab-card">
-                    <h3 class="lab-title">SIEM Deployment</h3>
-                    <p class="lab-desc">Security Onion and Splunk implementation for log analysis</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">Malware Analysis</h3>
-                    <p class="lab-desc">Examined malicious files using static and dynamic analysis techniques</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">Vulnerability Scanning</h3>
-                    <p class="lab-desc">Network scanning with Nmap and vulnerability assessment with OpenVAS</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">Log Analysis</h3>
-                    <p class="lab-desc">Security event monitoring through Windows/Linux system logs</p>
-                </div>
-            </div>
-            
-            <h3 class="category-title">System Hardening</h3>
-            <div class="labs-grid">
-                <div class="lab-card">
-                    <h3 class="lab-title">Linux Security</h3>
-                    <p class="lab-desc">Implemented SELinux, firewall rules, and user permission controls</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">Windows Security</h3>
-                    <p class="lab-desc">Group Policy configuration and Windows Defender deployment</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">Password Security</h3>
-                    <p class="lab-desc">Password policy enforcement and hash analysis</p>
-                </div>
-                
-                <div class="lab-card">
-                    <h3 class="lab-title">Firewall Configuration</h3>
-                    <p class="lab-desc">pfSense rule creation and traffic filtering</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="badges">
-            <h2 class="section-title">Certifications & Badges</h2>
-            <div class="badges-container">
-                <div class="badge">
-                    <i class="fas fa-shield-halved"></i>
-                    <h3 class="badge-title">Google IT Support</h3>
-                    <p>Professional Certificate</p>
-                </div>
-                
-                <div class="badge">
-                    <i class="fas fa-lock"></i>
-                    <h3 class="badge-title">Google Cybersecurity</h3>
-                    <p>Professional Certificate</p>
-                </div>
-                
-                <div class="badge">
-                    <i class="fas fa-certificate"></i>
-                    <h3 class="badge-title">CompTIA CySA+</h3>
-                    <p> Certification (2025)</p>
-                </div>
-                
-                <div class="badge">
-                    <i class="fab fa-microsoft"></i>
-                    <h3 class="badge-title">Azure Fundamentals</h3>
-                    <p>Microsoft Certified</p>
-                </div>
-                
-                <!-- Added Splunk badge here -->
-                <div class="badge">
-                    <i class="fas fa-search"></i>
-                    <h3 class="badge-title">Splunk Certified</h3>
-                    <p>User & Power User</p>
-                </div>
-            </div>
-        </section>
-
-        <section id="contact">
-            <h2 class="section-title">Get In Touch</h2>
-            <div class="contact-grid">
-                <a href="mailto:macdonaldkugwa@gmail.com" class="contact-card">
-                    <i class="fas fa-envelope"></i>
-                    <div class="contact-details">
-                        <h3>Email</h3>
-                        <p>macdonaldkugwa@gmail.com</p>
-                    </div>
-                </a>
-                
-                <a href="https://linkedin.com/in/macdonald-kugwa" target="_blank" class="contact-card">
-                    <i class="fab fa-linkedin"></i>
-                    <div class="contact-details">
-                        <h3>LinkedIn</h3>
-                        <p>linkedin.com/in/macdonald-kugwa</p>
-                    </div>
-                </a>
-                
-                <a href="https://github.com/yourusername" target="_blank" class="contact-card">
-                    <i class="fab fa-github"></i>
-                    <div class="contact-details">
-                        <h3>GitHub</h3>
-                        <p>github.com/yourusername</p>
-                    </div>
-                </a>
-            </div>
-        </section>
-
-        <section id="resume">
-            <div class="resume-container">
-                <h2 class="section-title">Professional Resume</h2>
-                <p style="text-align: center; color: #94a3b8; margin-bottom: 2rem;">
-                    Download my complete resume for full professional details
-                </p>
-                
-                <div class="resume-highlights">
-                    <div class="resume-category">
-                        <h4>Experience</h4>
-                        <div class="resume-item">
-                            <i class="fas fa-briefcase"></i>
-                            <div>
-                                <strong>ADT Security Services</strong><br>
-                                Technical Support Specialist (2024-Present)
-                            </div>
-                        </div>
-                        <div class="resume-item">
-                            <i class="fas fa-briefcase"></i>
-                            <div>
-                                <strong>Bell Mobility</strong><br>
-                                National Channel Support Help Desk (2008-2020)
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="resume-category">
-                        <h4>Education</h4>
-                        <div class="resume-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <div>
-                                <strong>Per Scholas</strong><br>
-                                Cybersecurity Bootcamp (2025)
-                            </div>
-                        </div>
-                        <div class="resume-item">
-                            <i class="fas fa-graduation-cap"></i>
-                            <div>
-                                <strong>University of the People</strong><br>
-                                Bachelor's degree in Computer Science (2025)
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="resume-category">
-                        <h4>Key Skills</h4>
-                        <div class="resume-item">
-                            <i class="fas fa-check"></i>
-                            <div>SIEM Tools (Splunk, Security Onion)</div>
-                        </div>
-                        <div class="resume-item">
-                            <i class="fas fa-check"></i>
-                            <div>Threat Detection & Analysis</div>
-                        </div>
-                        <div class="resume-item">
-                            <i class="fas fa-check"></i>
-                            <div>Network Security</div>
-                        </div>
-                        <div class="resume-item">
-                            <i class="fas fa-check"></i>
-                            <div>Python/PowerShell Scripting</div>
-                        </div>
-                    </div>
-                </div>
-                
-                <div style="text-align: center;">
-                    <a href="Macdonald_Kugwa_Cybersecurity_Analyst.pdf" dmacdonald-kugwa-resume.pdfownload class="resume-download">
-                        <i class="fas fa-file-pdf"></i> Download Full Resume
-                    </a>
-                </div>
-            </div>
-        </section>
+      <!-- SIGNATURE: the three-tier lab, drawn as a live stack -->
+      <div class="stack reveal">
+        <div class="stack-head">
+          <span>Home lab · 3-tier</span>
+          <b>KVM / libvirt on Ubuntu</b>
+        </div>
+        <div class="stack-body">
+          <div class="node">
+            <div class="node-name">client</div>
+            <div class="node-addr">HTTP request</div>
+            <div class="node-note">Consumes the REST endpoint over the lab network.</div>
+          </div>
+          <div class="hop">│ HTTP</div>
+          <div class="node">
+            <div class="node-name">app-server</div>
+            <div class="node-addr">192.168.122.252 · Ubuntu 22.04 · 2 vCPU / 4 GB</div>
+            <div class="node-note">Node.js + Express API. Reads live records from the database and returns them over HTTP.</div>
+          </div>
+          <div class="hop">│ TDS :1433 — source-restricted at the firewall</div>
+          <div class="node">
+            <div class="node-name">db-server</div>
+            <div class="node-addr">192.168.122.30 · SQL Server Developer · 4 vCPU / 8 GB</div>
+            <div class="node-note">UFW accepts 1433 only from the app server. Application login is scoped to read/write — no schema or admin rights. Nightly backups at 02:00 by cron.</div>
+          </div>
+        </div>
+      </div>
     </div>
+  </div>
 
-    <footer>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="https://github.com/yourusername"><i class="fab fa-github"></i></a>
-            <a href="https://linkedin.com/in/macdonald-kugwa"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-discord"></i></a>
+  <!-- NOW -->
+  <section id="now">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-tag">Current</span>
+        <h2>What I'm running now</h2>
+        <p class="sec-sub">Two jobs at once: the client contract, and the business that holds it.</p>
+      </div>
+      <div class="cards">
+
+        <article class="card reveal">
+          <h3>ByteScale Systems LLC</h3>
+          <span class="role">Founder &amp; Principal · May 2026 – present</span>
+          <ul>
+            <li>Stood up the Texas entity end to end — <b>formation, EIN, business banking, S-corp election, vendor registration, invoicing, and the company site.</b></li>
+            <li>Won and delivers a <b>one-year corp-to-corp contract</b> with a guaranteed 40-hour week.</li>
+            <li>Building a consulting practice aimed at <b>mid-market oil, gas, and industrial clients</b>, with a 12-month roadmap into data pipeline work.</li>
+          </ul>
+          <div class="spec">TX SOS Form 205 · LLC taxed as S-corp · sole member and manager</div>
+        </article>
+
+        <article class="card reveal">
+          <h3>Service desk &amp; endpoint operations</h3>
+          <span class="role">Contract via ByteScale · 50+ site industrial services company</span>
+          <ul>
+            <li><b>Ranked first across every ticket category</b> on the service desk for two consecutive months.</li>
+            <li>Daily work in <b>Microsoft Intune, Entra ID, CrowdStrike Falcon, FortiSASE, Microsoft 365, and Freshservice</b>.</li>
+            <li>Device enrollment, identity and access resets, endpoint alert triage, and VPN/SASE connectivity across US sites.</li>
+            <li>Supporting the move of managed-service work <b>back in house</b>.</li>
+          </ul>
+          <div class="spec">Tier 1 support · Houston, TX · May 2026 – present</div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- LAB -->
+  <section id="lab">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-tag">Built, not watched</span>
+        <h2>The lab</h2>
+        <p class="sec-sub">Bare metal to working application. An hour a day, most days.</p>
+      </div>
+      <div class="cards">
+
+        <article class="card reveal">
+          <h3>Database tier, hardened</h3>
+          <span class="role">db-server</span>
+          <ul>
+            <li>SQL Server Developer on Ubuntu Server 22.04, provisioned under KVM/libvirt with LVM.</li>
+            <li><b>UFW rule set to accept 1433 only from the application server</b> — nothing else on the subnet can reach it.</li>
+            <li>Application login scoped to <b>db_datareader and db_datawriter</b>, no schema or admin rights.</li>
+            <li>Automated nightly backups via cron with a dedicated backup script.</li>
+          </ul>
+          <div class="spec">Ubuntu 22.04.5 LTS · 8 GB · 4 vCPU · 60 GB LVM</div>
+        </article>
+
+        <article class="card reveal">
+          <h3>Application tier</h3>
+          <span class="role">app-server</span>
+          <ul>
+            <li>Node.js and Express REST API returning live database records — <b>full path verified from client to SQL Server</b>.</li>
+            <li>Designed the three-tier architecture first, then built to it.</li>
+            <li>Rebuilding the same API in <b>FastAPI</b> and <b>.NET</b> to compare stacks on identical infrastructure.</li>
+          </ul>
+          <div class="spec">Ubuntu 22.04.5 LTS · 4 GB · 2 vCPU · 30 GB LVM</div>
+        </article>
+
+        <article class="card reveal">
+          <h3>Analysis workstation</h3>
+          <span class="role">Detection practice</span>
+          <ul>
+            <li>Clean Windows 11 Pro build, wiped and debloated from the ground up.</li>
+            <li><b>Dual-boot Ubuntu 24.04 LTS with Kali in a VM</b> for detection, log review, and analysis work.</li>
+            <li>Where the Splunk, Security Onion, and pfSense practice below actually happens.</li>
+          </ul>
+          <div class="spec">Win 11 Pro · Ubuntu 24.04 LTS · Kali (VM)</div>
+        </article>
+
+        <article class="card reveal">
+          <h3>DayThree</h3>
+          <span class="role">Progressive web app</span>
+          <ul>
+            <li>Habit tracker written from scratch — <b>three daily check-ins, push notifications, and notes</b>.</li>
+            <li>Installable PWA, built and shipped solo.</li>
+          </ul>
+          <div class="spec">PWA · service worker · push API</div>
+        </article>
+
+        <article class="card reveal">
+          <h3>LLM evaluation work</h3>
+          <span class="role">Contract · AI training programs</span>
+          <ul>
+            <li>Grade and rank model responses against <b>gold-standard rubrics I help design</b>.</li>
+            <li>Refine evaluation methodology so ratings stay consistent across reviewers.</li>
+          </ul>
+          <div class="spec">Rubric design · response grading · methodology review</div>
+        </article>
+
+        <article class="card reveal">
+          <h3>Consulting site build</h3>
+          <span class="role">Infomes Tech Consulting</span>
+          <ul>
+            <li>Designed and built the firm's service site across six practice areas — <b>cybersecurity, automation, IT support, fraud detection, healthcare IT, and AI implementation</b>.</li>
+          </ul>
+          <div class="spec">Front-end build · content architecture</div>
+        </article>
+
+      </div>
+
+      <div class="chips">
+        <span class="chip">Splunk</span>
+        <span class="chip">Security Onion</span>
+        <span class="chip">Nmap</span>
+        <span class="chip">OpenVAS</span>
+        <span class="chip">pfSense</span>
+        <span class="chip">Windows Event Logs</span>
+        <span class="chip">Group Policy</span>
+        <span class="chip">SELinux</span>
+        <span class="chip">ACLs / NAT / DHCP</span>
+        <span class="chip">Python</span>
+        <span class="chip">PowerShell</span>
+        <span class="chip">Bash</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECORD -->
+  <section id="record">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-tag">Track record</span>
+        <h2>Where the hours went</h2>
+        <p class="sec-sub">Nearly two decades of support work, ending up where it was always headed.</p>
+      </div>
+      <div class="record">
+        <div class="row reveal">
+          <div class="when">2026 – present</div>
+          <div class="what"><b>ByteScale Systems LLC — Founder &amp; Principal Consultant</b>
+            <span>IT and cybersecurity consulting, Texas. Corp-to-corp delivery for industrial services clients.</span></div>
         </div>
-        <p class="copyright">© 2023 Macdonald Kugwa. All rights reserved.</p>
-    </footer>
+        <div class="row reveal">
+          <div class="when">2024 – 2025</div>
+          <div class="what"><b>ADT Security Services — Technical Support</b>
+            <span>Security system diagnostics, connectivity troubleshooting, and customer escalations.</span></div>
+        </div>
+        <div class="row reveal">
+          <div class="when">2021 – present</div>
+          <div class="what"><b>Infomes Tech Consulting — IT Contractor</b>
+            <span>Client IT support and delivery, including the firm's own service website.</span></div>
+        </div>
+        <div class="row reveal">
+          <div class="when">2020 – present</div>
+          <div class="what"><b>AI evaluation contractor</b>
+            <span>Model response evaluation and rubric design for AI training programs.</span></div>
+        </div>
+        <div class="row reveal">
+          <div class="when">2007 – 2020</div>
+          <div class="what"><b>Bell Mobility — National Channel Support Help Desk</b>
+            <span>Thirteen years of frontline and escalation support for national dealer channels.</span></div>
+        </div>
+        <div class="row reveal">
+          <div class="when">2025</div>
+          <div class="what"><b>University of the People — BS, Computer Science</b>
+            <span>Completed while working full time.</span></div>
+        </div>
+        <div class="row reveal">
+          <div class="when">2025</div>
+          <div class="what"><b>Per Scholas — Cybersecurity Bootcamp</b>
+            <span>Hands-on labs in network security, threat detection, and system hardening.</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script>
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-            });
-        });
-        
-        // Animation on scroll
-        const observerOptions = {
-            threshold: 0.1
-        };
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('animate');
-                }
-            });
-        }, observerOptions);
-        
-        document.querySelectorAll('.lab-card, .badge, .contact-card').forEach(card => {
-            observer.observe(card);
-        });
-        
-        // Terminal typewriter effect
-        const terminalCommands = document.querySelectorAll('.terminal-command');
-        terminalCommands.forEach((cmd, index) => {
-            setTimeout(() => {
-                cmd.style.animation = 'typing 3s steps(40, end)';
-            }, index * 1000);
-        });
-    </script>
+  <!-- CREDENTIALS -->
+  <section id="credentials">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-tag">Credentials</span>
+        <h2>Held, and in progress</h2>
+        <p class="sec-sub">Listed separately on purpose. A certificate in progress is not a certificate held.</p>
+      </div>
+      <div class="creds">
+        <div class="cred-col held reveal">
+          <h3>Held</h3>
+          <ul>
+            <li>CompTIA CySA+ <em>2025</em></li>
+            <li>Splunk Core Certified User <em>—</em></li>
+            <li>Google IT Support Professional <em>—</em></li>
+            <li>Cisco Network Defense <em>—</em></li>
+            <li>IBM AI Practitioner <em>—</em></li>
+          </ul>
+        </div>
+        <div class="cred-col wip reveal">
+          <h3>In progress</h3>
+          <ul>
+            <li>AWS Solutions Architect – Associate <em>active</em></li>
+            <li>Microsoft DP-300 Database Administrator <em>Sep 2026</em></li>
+            <li>Microsoft AI-900 AI Fundamentals <em>studying</em></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUME -->
+  <section id="resume">
+    <div class="wrap">
+      <div class="resume-box reveal">
+        <div>
+          <span class="sec-tag">Full history</span>
+          <h2>Resume</h2>
+          <p>Complete work history, tooling, and project detail in one PDF.</p>
+        </div>
+        <a href="Macdonald_Kugwa_Cybersecurity_Analyst.pdf" download="macdonald-kugwa-resume.pdf" class="btn">Download PDF</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact">
+    <div class="wrap">
+      <div class="sec-head">
+        <span class="sec-tag">Contact</span>
+        <h2>Get in touch</h2>
+        <p class="sec-sub">Open to SOC analyst and IT operations roles, and to consulting work through ByteScale.</p>
+      </div>
+      <div class="contact-grid">
+        <a class="contact-card" href="mailto:macdonaldkugwa@gmail.com">
+          <span>Email</span>
+          <p>macdonaldkugwa@gmail.com</p>
+        </a>
+        <a class="contact-card" href="tel:+18327590967">
+          <span>Phone</span>
+          <p>832-759-0967</p>
+        </a>
+        <a class="contact-card" href="https://linkedin.com/in/macdonald-kugwa" target="_blank" rel="noopener">
+          <span>LinkedIn</span>
+          <p>linkedin.com/in/macdonald-kugwa</p>
+        </a>
+        <a class="contact-card" href="https://github.com/Makicho" target="_blank" rel="noopener">
+          <span>GitHub</span>
+          <p>github.com/Makicho</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="foot">
+    <span>© 2026 Macdonald Kugwa · ByteScale Systems LLC</span>
+    <span>Richmond, TX · <a href="mailto:macdonaldkugwa@gmail.com">macdonaldkugwa@gmail.com</a> · <a href="https://github.com/Makicho" target="_blank" rel="noopener">github.com/Makicho</a></span>
+  </div>
+</footer>
+
+<script>
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('on'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  document.querySelectorAll('.reveal').forEach(el => io.observe(el));
+</script>
 </body>
 </html>
